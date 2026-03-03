@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-border: var(--border-color);
+}
+
+@layer base {
+  :root {
+    /* Dark (Default) */
+    --bg-primary: #313338;
+    --bg-secondary: #2b2d31;
+    --bg-tertiary: #1e1f22;
+    --text-primary: #f2f3f5;
+    --text-secondary: #b5bac1;
+    --accent: #5865f2;
+    --accent-hover: #4752c4;
+    --border-color: #1e1f22;
+  }
+
+  .theme-light {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f2f3f5;
+    --bg-tertiary: #e3e5e8;
+    --text-primary: #060607;
+    --text-secondary: #4e5058;
+    --accent: #5865f2;
+    --accent-hover: #4752c4;
+    --border-color: #e3e5e8;
+  }
+
+  .theme-midnight {
+    --bg-primary: #0f172a;
+    --bg-secondary: #020617;
+    --bg-tertiary: #000000;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent: #3b82f6;
+    --accent-hover: #2563eb;
+    --border-color: #1e293b;
+  }
+
+  .theme-forest {
+    --bg-primary: #14532d;
+    --bg-secondary: #166534;
+    --bg-tertiary: #064e3b;
+    --text-primary: #f0fdf4;
+    --text-secondary: #86efac;
+    --accent: #22c55e;
+    --accent-hover: #16a34a;
+    --border-color: #065f46;
+  }
+
+  .theme-sunset {
+    --bg-primary: #7c2d12;
+    --bg-secondary: #9a3412;
+    --bg-tertiary: #431407;
+    --text-primary: #fff7ed;
+    --text-secondary: #fdba74;
+    --accent: #f97316;
+    --accent-hover: #ea580c;
+    --border-color: #7c2d12;
+  }
+
+  .theme-ocean {
+    --bg-primary: #0c4a6e;
+    --bg-secondary: #075985;
+    --bg-tertiary: #082f49;
+    --text-primary: #f0f9ff;
+    --text-secondary: #7dd3fc;
+    --accent: #0ea5e9;
+    --accent-hover: #0284c7;
+    --border-color: #0c4a6e;
+  }
+
+  .theme-nebula {
+    --bg-primary: #4c1d95;
+    --bg-secondary: #5b21b6;
+    --bg-tertiary: #2e1065;
+    --text-primary: #f5f3ff;
+    --text-secondary: #c4b5fd;
+    --accent: #8b5cf6;
+    --accent-hover: #7c3aed;
+    --border-color: #4c1d95;
+  }
+
+  body {
+    @apply bg-bg-primary text-text-primary overflow-hidden;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-bg-tertiary;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-bg-secondary rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-border;
+  }
+}
