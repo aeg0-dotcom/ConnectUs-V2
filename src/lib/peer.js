@@ -1,25 +1,15 @@
-import Peer, { DataConnection } from 'peerjs';
-import { db, Message, Channel, User } from './db';
+import Peer from 'peerjs';
+import { db } from './db';
 import { useStore } from '../store/useStore';
 
-export type PayloadType = 
-  | 'CHAT_MESSAGE'
-  | 'USER_JOINED'
-  | 'USER_LEFT'
-  | 'CHANNEL_CREATED'
-  | 'SYNC_STATE';
-
-export interface Payload {
-  type: PayloadType;
-  data: any;
-}
-
 class PeerService {
-  private peer: Peer | null = null;
-  private connections: Map<string, DataConnection> = new Map();
-  private hostConnection: DataConnection | null = null;
+  constructor() {
+    this.peer = null;
+    this.connections = new Map();
+    this.hostConnection = null;
+  }
 
-  async initPeer(isHost: boolean, hostIdToJoin?: string): Promise<string> {
+  async initPeer(isHost, hostIdToJoin) {
     return new Promise((resolve, reject) => {
       this.peer = new Peer({
         config: {
@@ -68,7 +58,7 @@ class PeerService {
     });
   }
 
-  private async initDefaultState() {
+  async initDefaultState() {
     const state = useStore.getState();
     await db.channels.add({
       id: 'general',
@@ -78,7 +68,7 @@ class PeerService {
     });
     
     await db.users.add({
-      id: state.peerId!,
+      id: state.peerId,
       name: state.username,
       color: state.userColor,
       isHost: true,
@@ -86,7 +76,7 @@ class PeerService {
     });
   }
 
-  private setupHostListeners() {
+  setupHostListeners() {
     if (!this.peer) return;
 
     this.peer.on('connection', (conn) => {
@@ -104,8 +94,8 @@ class PeerService {
         });
       });
 
-      conn.on('data', async (data: unknown) => {
-        const payload = data as Payload;
+      conn.on('data', async (data) => {
+        const payload = data;
         await this.handlePayload(payload, conn.peer);
         
         // Broadcast to others if host
@@ -125,7 +115,7 @@ class PeerService {
     });
   }
 
-  private connectToHost(hostId: string): Promise<void> {
+  connectToHost(hostId) {
     return new Promise((resolve, reject) => {
       if (!this.peer) return reject('Peer not initialized');
 
@@ -153,8 +143,8 @@ class PeerService {
         resolve();
       });
 
-      conn.on('data', async (data: unknown) => {
-        await this.handlePayload(data as Payload);
+      conn.on('data', async (data) => {
+        await this.handlePayload(data);
       });
 
       conn.on('close', () => {
@@ -169,7 +159,7 @@ class PeerService {
     });
   }
 
-  private async handlePayload(payload: Payload, senderId?: string) {
+  async handlePayload(payload, senderId) {
     switch (payload.type) {
       case 'SYNC_STATE':
         await db.users.bulkPut(payload.data.users);
@@ -191,18 +181,18 @@ class PeerService {
     }
   }
 
-  sendMessage(channelId: string, content: string) {
+  sendMessage(channelId, content) {
     const state = useStore.getState();
-    const message: Message = {
+    const message = {
       channelId,
-      senderId: state.peerId!,
+      senderId: state.peerId,
       senderName: state.username,
       senderColor: state.userColor,
       content,
       timestamp: Date.now()
     };
 
-    const payload: Payload = { type: 'CHAT_MESSAGE', data: message };
+    const payload = { type: 'CHAT_MESSAGE', data: message };
 
     if (state.isHost) {
       this.handlePayload(payload);
@@ -212,8 +202,8 @@ class PeerService {
     }
   }
 
-  createChannel(channel: Channel) {
-    const payload: Payload = { type: 'CHANNEL_CREATED', data: channel };
+  createChannel(channel) {
+    const payload = { type: 'CHANNEL_CREATED', data: channel };
     if (useStore.getState().isHost) {
       this.handlePayload(payload);
       this.broadcast(payload);
@@ -222,7 +212,7 @@ class PeerService {
     }
   }
 
-  private broadcast(payload: Payload, excludePeerId?: string) {
+  broadcast(payload, excludePeerId) {
     this.connections.forEach((conn, peerId) => {
       if (peerId !== excludePeerId && conn.open) {
         conn.send(payload);
@@ -230,13 +220,13 @@ class PeerService {
     });
   }
 
-  private sendToHost(payload: Payload) {
+  sendToHost(payload) {
     if (this.hostConnection && this.hostConnection.open) {
       this.hostConnection.send(payload);
     }
   }
 
-  private sendToPeer(conn: DataConnection, payload: Payload) {
+  sendToPeer(conn, payload) {
     if (conn.open) {
       conn.send(payload);
     }

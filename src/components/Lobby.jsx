@@ -23,7 +23,7 @@ export default function Lobby() {
       setIsHost(true);
       await peerService.initPeer(true);
       navigate('/chat');
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'Failed to host room');
       setStatus('error');
     } finally {
@@ -44,7 +44,7 @@ export default function Lobby() {
       setIsHost(false);
       await peerService.initPeer(false, joinId.trim());
       navigate('/chat');
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'Failed to join room');
       setStatus('error');
     } finally {

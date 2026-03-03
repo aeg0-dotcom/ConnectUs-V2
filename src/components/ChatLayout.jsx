@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, Users as UsersIcon, Settings } from 'lucide-react';
+import { Menu, Users as UsersIcon } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { peerService } from '../lib/peer';
 import Sidebar from './Sidebar';
@@ -9,7 +9,7 @@ import UserList from './UserList';
 
 export default function ChatLayout() {
   const navigate = useNavigate();
-  const { status, isHost, peerId, theme } = useStore();
+  const { status, isHost, theme } = useStore();
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isUserListOpen, setIsUserListOpen] = useState(false);
@@ -21,7 +21,7 @@ export default function ChatLayout() {
   }, [status, navigate]);
 
   useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+    const handleBeforeUnload = (e) => {
       if (isHost) {
         e.preventDefault();
         e.returnValue = '';

@@ -5,7 +5,7 @@ import { db } from '../lib/db';
 import { useStore } from '../store/useStore';
 import { peerService } from '../lib/peer';
 
-export default function Sidebar({ onClose }: { onClose: () => void }) {
+export default function Sidebar({ onClose }) {
   const { activeChannelId, setActiveChannelId, isHost, peerId, theme, setTheme, username } = useStore();
   const channels = useLiveQuery(() => db.channels.toArray(), []);
   
@@ -16,7 +16,7 @@ export default function Sidebar({ onClose }: { onClose: () => void }) {
   const [copied, setCopied] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
-  const handleCreateChannel = (e: React.FormEvent) => {
+  const handleCreateChannel = (e) => {
     e.preventDefault();
     if (!newChannelName.trim()) return;
 
@@ -168,7 +168,7 @@ export default function Sidebar({ onClose }: { onClose: () => void }) {
               {themes.map(t => (
                 <button
                   key={t}
-                  onClick={() => setTheme(t as any)}
+                  onClick={() => setTheme(t)}
                   className={`text-xs capitalize py-1.5 px-2 rounded border transition-colors ${
                     theme === t 
                       ? 'bg-accent border-accent text-white' 

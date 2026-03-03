@@ -7,11 +7,11 @@ import { useStore } from '../store/useStore';
 import { peerService } from '../lib/peer';
 
 export default function ChatArea() {
-  const { activeChannelId, username } = useStore();
+  const { activeChannelId } = useStore();
   const [message, setMessage] = useState('');
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef(null);
 
   const channel = useLiveQuery(
     () => db.channels.get(activeChannelId),
@@ -35,7 +35,7 @@ export default function ChatArea() {
     setPassword('');
   }, [activeChannelId]);
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSend = (e) => {
     e.preventDefault();
     if (!message.trim() || !channel) return;
 
@@ -43,7 +43,7 @@ export default function ChatArea() {
     setMessage('');
   };
 
-  const handleAuth = (e: React.FormEvent) => {
+  const handleAuth = (e) => {
     e.preventDefault();
     if (channel?.password === password) {
       setIsAuthenticated(true);

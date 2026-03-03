@@ -1,41 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type ConnectionStatus = 'disconnected' | 'connecting' | 'waiting' | 'connected' | 'error';
-
-export type Theme = 'dark' | 'light' | 'midnight' | 'forest' | 'sunset' | 'ocean' | 'nebula';
-
-interface AppState {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-  
-  username: string;
-  setUsername: (name: string) => void;
-  
-  peerId: string | null;
-  setPeerId: (id: string | null) => void;
-  
-  hostId: string | null;
-  setHostId: (id: string | null) => void;
-  
-  isHost: boolean;
-  setIsHost: (isHost: boolean) => void;
-  
-  status: ConnectionStatus;
-  setStatus: (status: ConnectionStatus) => void;
-  
-  activeChannelId: string;
-  setActiveChannelId: (id: string) => void;
-  
-  userColor: string;
-  setUserColor: (color: string) => void;
-  
-  error: string | null;
-  setError: (error: string | null) => void;
-  
-  resetSession: () => void;
-}
-
 const getRandomColor = () => {
   const colors = [
     '#ef4444', '#f97316', '#f59e0b', '#84cc16', '#22c55e', '#10b981', 
@@ -45,7 +10,7 @@ const getRandomColor = () => {
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
-export const useStore = create<AppState>()(
+export const useStore = create(
   persist(
     (set) => ({
       theme: 'dark',

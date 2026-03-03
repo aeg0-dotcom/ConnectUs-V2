@@ -3,7 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { Users as UsersIcon, Crown, X } from 'lucide-react';
 import { db } from '../lib/db';
 
-export default function UserList({ onClose }: { onClose: () => void }) {
+export default function UserList({ onClose }) {
   const users = useLiveQuery(() => db.users.toArray(), []);
 
   return (
