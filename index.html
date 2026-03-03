@@ -1,30 +1,43 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ConnectUs-V2</title>
+    
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
     <link rel="stylesheet" href="./style.css">
-  </head>
-  <body>
+
+    <style>
+        /* CSS kodlarını buraya da yapıştırabilirsin */
+        body { margin: 0; font-family: sans-serif; background-color: #f0f2f5; }
+    </style>
+</head>
+<body>
     <div id="root"></div>
 
     <script type="text/babel">
-      // Buraya src/main.js (veya App.js) içindeki tüm kodlarını kopyalayıp yapıştırabilirsin.
-      // Örnek basit bir test bileşeni:
-      function App() {
-        return (
-          <div style={{ textAlign: 'center', marginTop: '50px' }}>
-            <h1>ConnectUs-V2 Yayında!</h1>
-            <p>Eğer bu yazıyı görüyorsan React çalışıyor demektir.</p>
-          </div>
-        );
-      }
+        // 1. BURAYA Google AI Studio'nun ürettiği tüm JS/TSX kodlarını yapıştır.
+        // NOT: Başındaki 'import ...' satırlarını SİL. Tarayıcıda buna gerek yok.
 
-      const root = ReactDOM.createRoot(document.getElementById('root'));
-      root.render(<App />);
+        const { useState, useEffect } = React;
+
+        function App() {
+            // Örnek Chat Yapısı (Burayı kendi kodunla değiştir)
+            return (
+                <div className="app-container">
+                    <h1>ConnectUs-V2 Chat</h1>
+                    <p>Sohbet uygulaması burada çalışacak.</p>
+                </div>
+            );
+        }
+
+        // 2. Uygulamayı başlat
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
-  </body>
+</body>
 </html>
