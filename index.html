@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ConnectUs-V2</title>
+    <title>ConnectUs-V2 | Chat</title>
     
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -12,30 +12,42 @@
     <link rel="stylesheet" href="./style.css">
 
     <style>
-        /* CSS kodlarını buraya da yapıştırabilirsin */
-        body { margin: 0; font-family: sans-serif; background-color: #f0f2f5; }
+        /* Eğer ayrı bir CSS dosyan yoksa stilleri buraya da yazabilirsin */
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        // 1. BURAYA Google AI Studio'nun ürettiği tüm JS/TSX kodlarını yapıştır.
-        // NOT: Başındaki 'import ...' satırlarını SİL. Tarayıcıda buna gerek yok.
+        // React Hook'larını tarayıcıya tanıtıyoruz
+        const { useState, useEffect, useRef } = React;
 
-        const { useState, useEffect } = React;
+        // --- KENDİ KODUNU BURADAN İTİBAREN YAPIŞTIR ---
+        // (Not: Kendi kodundaki 'import' satırlarını buraya kopyalama!)
 
         function App() {
-            // Örnek Chat Yapısı (Burayı kendi kodunla değiştir)
+            // Örnek bir başlangıç kodu (Burayı kendi AI Studio kodunla değiştir)
+            const [messages, setMessages] = useState([]);
+            
             return (
-                <div className="app-container">
-                    <h1>ConnectUs-V2 Chat</h1>
-                    <p>Sohbet uygulaması burada çalışacak.</p>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <header style={{ background: '#075e54', color: 'white', padding: '10px', borderRadius: '8px' }}>
+                        <h1>ConnectUs-V2 Chat</h1>
+                    </header>
+                    <main style={{ marginTop: '20px' }}>
+                        <p>Sohbet uygulaması hazır! Kendi kodlarını buraya ekleyebilirsin.</p>
+                        <div style={{ border: '1px solid #ddd', height: '300px', borderRadius: '5px', background: 'white' }}>
+                            {/* Mesajlar buraya gelecek */}
+                        </div>
+                    </main>
                 </div>
             );
         }
 
-        // 2. Uygulamayı başlat
+        // --- KODUNU YAPIŞTIRMAYI BURADA BİTİR ---
+
+        // Uygulamayı ekrana basan kısım
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
